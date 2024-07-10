@@ -1,0 +1,18 @@
+---
+import type { HistoryCard } from '../../pages/history.astro'
+export interface Props {
+  history: HistoryCard
+}
+const { history } = Astro.props
+---
+<div>
+  <div class="font-bold history">{history.title}</div>
+  <div class="hidden view">
+    {history.date.getMonth() + 1}/{history.date.getDay()}
+  </div>
+</div>
+<style>
+  .history:hover + .view {
+    display: block;
+  }
+</style>

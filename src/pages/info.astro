@@ -1,0 +1,62 @@
+---
+import Base from '../layouts/Base.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import RawLink from '../components/RawLink.astro'
+import pubkey from '../../public/pubkey.asc?raw'
+---
+<Base title='Info for Shotaro Nakamura' description='Shotaro Nakamura info'>
+  <Header />
+  <div class="flex h-dvh">
+    <div class="hidden flex-none md:flex items-center h-full p-1">
+      <div>
+        <div class="grid grid-rows-2 h-full gap-2 font-bold">
+          <div class="p-1 rounded-lg"><a href="#links">Links</a></div>
+          <div class="p-1 rounded-lg"><a href="#pgp">PGP Key</a></div>
+        </div>
+      </div>
+    </div>
+    <div class="h-full overflow-y-scroll grow scroll-smooth">
+      <a id="links"></a>
+      <div class="h-dvh flex flex-col justify-center items-center">
+        <div class="p-2">
+          <div class="text-3xl font-bold">Links</div>
+          <div>
+            <ul class="list-disc list-inside">
+              <li>GitHub: <RawLink url="https://github.com/nakasyou" /></li>
+              <li>X: <RawLink url="https://z.com/nakasyou0" /></li>
+              <li>Instagram: <RawLink url="https://github.com/nakasyou_opened" /></li>
+              <li>Zenn: <RawLink url="https://zenn.dev/nakasyou" /></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <a id="pgp"></a>
+      <div class="min-h-dvh bg-slate-800">
+        <div class="text-3xl font-bold text-white text-center">PGP Key</div>
+        <div class="text-white text-center">RSA 4096Bit</div>
+        <div class="text-white text-center"><a href="/pubkey.asc">Download</a></div>
+        <div class="text-white grid place-items-center p-4">
+          <pre class="w-full gaming-pgp overflow-x-scroll"><code>{pubkey}</code></pre>
+        </div>
+      </div>
+      <Footer />
+    </div>
+  </div>
+</Base>
+<style>
+  .gaming-pgp {
+    background: linear-gradient(to bottom, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+    background-size: 200% 200%;
+    animation: 10s gradaa linear infinite;
+    @apply bg-clip-text text-transparent;
+  }
+  @keyframes gradaa {
+    0% {
+      background-position: 0% 200%;
+    }
+    100% {
+      background-position: 0% 0%;
+    }
+  }
+</style>

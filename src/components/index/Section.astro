@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string
+  en: string
+  id: string
+}
+
+---
+<div>
+  <a id={Astro.props.id} />
+  <div class="flex gap-2 items-end">
+    <div class="text-3xl font-bold">{ Astro.props.title }</div>
+    <div class="text-slate-500 text-lg">{ Astro.props.en }</div>
+  </div>
+  <hr class="mb-3" />
+  <slot />
+</div>

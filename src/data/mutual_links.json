@@ -1,0 +1,41 @@
+{
+  "$schema": "./mutual_links.schema.json",
+  "links": [
+    {
+      "url": "https://harusamemelon.github.io",
+      "author": "はるさめさん",
+      "date": "2023-05-06",
+      "title": "はるさめのホームページ"
+    },
+    {
+      "url": "https://p-nutsk.github.io",
+      "author": "P_nutsKさん",
+      "date": "2023-05-09",
+      "title": "P_nutsKのページ"
+    },
+    {
+      "url": "https://rangem-kishiyama.github.io",
+      "author": "RangeM Kishiyamaさん",
+      "date": "2023-05-21",
+      "title": "RangeM Kishiyamaのブログ"
+    },
+    {
+      "url": "https://activetk.jp",
+      "author": "ActiveTK.さん",
+      "date": "2023-12-27",
+      "title": "ActiveTK.jp"
+    },
+    {
+      "url": "https://akku1139.github.io",
+      "author": "akkuさん",
+      "date": "2024-06-30",
+      "title": "akku's website"
+    },
+    {
+      "url": "https://snail-san.github.io",
+      "author": "かたつむり.sb3.cs.js.tsさん",
+      "date": "2024-06-30",
+      "title": "かたつむり.sb3.cs.js.tsの技術ブログ"
+    }
+  ]
+}

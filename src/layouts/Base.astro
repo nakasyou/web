@@ -1,0 +1,25 @@
+---
+interface Props {
+  description: string
+  title: string
+  bodyClass?: string
+}
+---
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{Astro.props.title}</title>
+    <meta name="description" content={Astro.props.description} />
+    {
+      import.meta.env.DEV && <>
+        <script src="//cdn.jsdelivr.net/npm/eruda" is:inline></script>
+        <script is:inline>eruda.init();</script>
+      </>
+    }
+  </head>
+  <body class={Astro.props.bodyClass}>
+    <slot />
+  </body>
+</html>

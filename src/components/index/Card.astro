@@ -1,0 +1,14 @@
+---
+interface Props {
+  title: string
+}
+---
+<div>
+  <div class="bg-gradient-to-br from-rose-600 to-purple-500 p-px">
+    <div class="bg-white p-1">
+      <div class="font-bold">{ Astro.props.title }</div>
+      <slot />
+    </div>
+  </div>
+</div>
+

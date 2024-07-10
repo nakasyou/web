@@ -1,0 +1,66 @@
+---
+import { array } from "astro/zod";
+import Parser, { type Item } from "rss-parser";
+import Icon from "./components/Icon.astro";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props {
+  forOne?: astroHTML.JSX.DefinedIntrinsicElements['div']
+}
+const forOne = Astro.props.forOne ?? {}
+
+const parser = new Parser();
+
+let articles: {
+  type: "zenn" | "sizu";
+  item: Item;
+}[] = [];
+
+// @ts-expect-error
+articles = globalThis.articles;
+if (articles.length === 0) {
+  await Promise.all([
+    (async () => {
+      const parsed = await parser.parseURL("https://zenn.dev/nakasyou/feed");
+      for (const item of parsed.items) {
+        articles.push({
+          item,
+          type: "zenn",
+        });
+      }
+    })(),
+    (async () => {
+      const parsed = await parser.parseURL("https://sizu.me/nakasyou/rss");
+      console.log(parsed)
+      for (const item of parsed.items) {
+        articles.push({
+          item,
+          type: "sizu",
+        });
+      }
+    })(),
+  ]);
+  // @ts-expect-error
+  globalThis.articles = articles
+}
+articles.sort((a, b) => new Date(b.item.pubDate ?? '').getTime() - new Date(a.item.pubDate ?? '').getTime())
+---
+{
+  articles.map(({ type, item }) => <a href={item.link}><div class:list={[
+    forOne.class,
+    forOne['class:list']
+  ]} class="border bg-cover bg-top rounded-lg" style={{
+    'background-image': `url('${item.enclosure?.url}')`,
+    ...(forOne.style && typeof forOne.style === 'object' ? forOne.style : {})
+  }}>
+    <div class="min-h-64">
+    </div>
+    <div class="bg-gradient-to-b from-transparent to-black text-white p-1 pt-5">
+      <div class="font-bold">{item.title}</div>
+      <div class="flex">
+        <Icon icon="calendarEvent" class="w-5 h-5" />
+        {new Date(item.pubDate ?? '').toDateString()}
+      </div>
+    </div>
+  </div></a>)
+}

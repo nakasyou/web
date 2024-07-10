@@ -1,0 +1,23 @@
+{
+  "name": "nakasyou-page",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.8.0",
+    "@astrojs/svelte": "^5.6.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "@tabler/icons": "^3.10.0",
+    "astro": "^4.11.5",
+    "rss-parser": "^3.13.0",
+    "svelte": "^4.2.18",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.5.3"
+  }
+}

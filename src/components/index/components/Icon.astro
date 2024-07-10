@@ -1,0 +1,28 @@
+---
+import mapPin from '@tabler/icons/outline/map-pin.svg?raw'
+import mail from '@tabler/icons/outline/mail.svg?raw'
+import calendarEvent from '@tabler/icons/outline/calendar-event.svg?raw'
+import brandX from '@tabler/icons/outline/brand-x.svg?raw'
+import brandGithub from '@tabler/icons/outline/brand-github.svg?raw' // わざと！
+import brandMatrix from '@tabler/icons/outline/brand-matrix.svg?raw'
+
+const icons = {
+  mapPin,
+  mail,
+  calendarEvent,
+  brandX,
+  brandGithub,
+  brandMatrix
+} as const satisfies Record<string, string>
+
+export interface Props {
+  icon: keyof typeof icons
+  class?: string
+}
+
+const icon = icons[Astro.props.icon]
+  .replace('width="24"', '')
+  .replace('height="24"', '')
+  .replace(/class=".+"/, `class="${Astro.props.class ?? ''}"`)
+---
+<Fragment set:html={icon} class="w-full "></Fragment>

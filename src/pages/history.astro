@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import historyJSON from '../data/history.json'
+import Card from '../components/history/Card.astro'
+
+export interface HistoryCard {
+  date: Date
+  title: string
+  ym: string
+  type: number
+}
+
+const histories: HistoryCard[] = historyJSON.history.map(([type, date, title]) => {
+    const dateObj = new Date(date)
+    return {
+      date: dateObj,
+      title: title as string,
+      ym: `${dateObj.getFullYear()}/${dateObj.getMonth() + 1}`,
+      type: type as number
+    }
+  }).sort((a, b) => b.date.getTime() - a.date.getTime())
+
+const started = histories.at(-1)!.date
+const continuing = new Date()
+
+const years = [...Array(continuing.getFullYear() - started.getFullYear() + 1)].map((_, i) => continuing.getFullYear() - i)
+---
+<Base
+  title="History of Shotaro Nakamura"
+  description="History of Shotaro Nakamura"
+  bodyClass='bg-slate-600 text-white'
+>
+  <Header />
+  <div class="p-5 py-10">
+    <div class="text-4xl font-bold text-center">History of Shotaro Nakamura</div>
+    <hr class="my-1" />
+  </div>
+  <div class="">
+    <div class="text-3xl text-center">Now</div>
+    {
+      years.map(year => <div>
+        <div class="grid items-center grid-rows-12">
+          {[...Array(12)].map((_, i) => <>
+              <div class="grid grid-cols-5">
+                <div class="text-right col-span-2">
+                  {histories.filter(v => v.ym === `${year}/${12 - i}` && v.type === 0).map(h => <Card history={h} />)}
+                </div>
+                <div class="flex justify-center">
+                  <div class="bg-pink-500 text-5xl py-1">.</div>
+                </div>
+                <div class="text-left col-span-2">
+                  {histories.filter(v => v.ym === `${year}/${12 - i}` && v.type === 1).map(h => <Card history={h} />)}
+                </div>
+              </div>
+            </>
+          )}
+          <div class="text-center font-bold text-2xl sticky bottom-0">{year}</div>
+        </div>
+      </div>)
+    }
+  </div>
+  <Footer />
+</Base>

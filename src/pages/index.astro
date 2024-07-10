@@ -1,0 +1,118 @@
+---
+import Base from '../layouts/Base.astro'
+import Hello from '../components/index/Hello.svelte'
+import likes from '../data/likes.json'
+import Section from '../components/index/Section.astro'
+import Card from '../components/index/Card.astro'
+import allergens from '../data/allergens.json'
+import basedata from '../data/basedata.json'
+import Icon from '../components/index/components/Icon.astro'
+import Articles from '../components/index/Articles.astro'
+import mutualLinks from '../data/mutual_links.json'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+---
+<Base title="Shotaro Nakamura" description="Shotaro Nakamura's Profile">
+  <Header />
+  <div class="grid place-items-center h-dvh">
+    <div />
+    <div class="p-2">
+      <Hello client:load />
+      <div class="text-6xl md:text-7xl font-semibold bg-gradient-to-br from-rose-600 via-purple-500  to-emerald-500 bg-clip-text text-transparent">
+        Shotaro Nakamura
+      </div>
+    </div>
+    <div class="font-bold"><a href="#profile">Scroll?⬇️</a></div>
+  </div>
+  <div class="h-dvh">
+    <a id="profile"></a>
+    <div class="grid grid-cols-1 md:grid-cols-2 h-full">
+      <div class="grid place-items-center">
+        <div>
+          <div><img src="https://github.com/nakasyou.png" class="rounded-full w-32 h-32" alt="Shotaro Nakamura" /></div>
+          <div class="text-2xl font-bold">Shotaro Nakamura</div>
+          <div>nakasyou</div>
+          <hr />
+          <div class="text-slate-500">{basedata.age} / {basedata.school} / Japanese</div>
+          <div class="text-slate-500">
+            <div class="flex items-center">
+              <Icon icon="mapPin" class="w-5 h-5 gap-1" />
+              <div>Tokyo / Japan</div>
+            </div>
+            <div class="flex items-center">
+              <Icon icon="mail" class="w-5 h-5 gap-1" />
+              <div><a href="mailto:nakasyou1103@gmail.com">nakasyou1103@gmail.com</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="grid items-center p-2 w-full">
+        <div class="flex flex-col md:pr-5 text-center gap-2">
+          {
+            [
+              ['Profile', '#profile'],
+              ['Likes / Unlikes', '#likes'],
+              ['Articles', '#articles'],
+              ['Works', '#works']
+            ].map(([title, hash]) => <a href={hash}><div class="menu-btn p-1 text-2xl">
+              {title}
+            </div></a>)
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-5 flex flex-col gap-7">
+    <Section title="好きな ❤️" en='Favorites' id="likes">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {Object.entries(likes).map(([title, cs]) => <Card title={title}>{Array.isArray(cs) ? <ul class="list-disc list-inside">{cs.map(c => <li>{c}</li>)}</ul> : <div class="text-3xl font-bold text-slate-700">{cs}</div>}</Card>)}
+      </div>
+    </Section>
+    <Section title="嫌いな 🤮" en="Unlikes" id="unlikes">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <Card title='食べ物'>探している🔍</Card>
+        <Card title='アレルゲン'>{ allergens.join(' ') }</Card>
+      </div>
+    </Section>
+    <Section title="書いたもの 📝" en="Articles" id="articles">
+      <div class="flex items-start justify-start gap-2 w-full overflow-x-scroll" style={{
+        'scroll-snap-type': 'x mandatory'
+      }}>
+        <Articles forOne={{
+          class: 'flex-none w-64',
+          style: {
+            'scroll-snap-align': 'start'
+          }
+        }}/>
+      </div>
+    </Section>
+    <Section title="作ったもの 💪" en="Works" id="works">
+      <div>Work In Progress...</div>
+    </Section>
+    <Section title="相互リンク 🔗" en="Mutual Links" id="mutual_links">
+      <div class="grid grid-cols-3 text-slate-600 gap-2">
+        <div class="font-bold text-slate-500">Link</div>
+        <div class="font-bold text-slate-500">Author</div>
+        <div class="font-bold text-slate-500">Date</div>
+        {
+          mutualLinks.links.map((link, i) => <>
+            { i !== 0 && <hr class="col-span-3" /> }
+            <div><a href={link.url} class="underline hover:no-underline">{link.title}</a></div>
+            <div>{link.author}</div>
+            <div>{link.date}</div>
+          </>)
+        }
+      </div>
+    </Section>
+  </div>
+  <Footer />
+</Base>
+<style>
+  .menu-btn {
+    border: double 1px transparent;
+    @apply rounded-lg;
+    background-image: linear-gradient(white, white), radial-gradient(circle at top left, #f00,#3020ff);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+</style>
