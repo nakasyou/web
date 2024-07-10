@@ -17,7 +17,7 @@ let articles: {
 }[] = [];
 
 // @ts-expect-error
-articles = globalThis.articles;
+articles = globalThis.articles ?? [];
 if (articles.length === 0) {
   await Promise.all([
     (async () => {
